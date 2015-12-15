@@ -57,7 +57,7 @@ export CLEAN
 : ${SYSTEM_GCC=0}
 export SYSTEM_GCC
 
-: ${GCC_VERSION=4.9.2}
+: ${GCC_VERSION=5.3.0}
 export GCC_VERSION
 
 # Determine the number of build threads
