@@ -33,7 +33,14 @@ download_dependency $PACKAGE "${PACKAGE_STRING}.tgz" $THIS_DIR
 if needs_build_package ; then
   header $PACKAGE $PACKAGE_VERSION
 
-  wrap ./configure --enable-slapd=no --enable-static --with-pic --prefix=$LOCAL_INSTALL
+  CPPFLAGS=""
+  LDFLAGS=""
+  #if [[ "$OSTYPE" == "darwin"* ]]; then
+  #  CPPFLAGS="-I/usr/local/opt/nspr/include/nspr -I/usr/local/opt/nss/include/nss"
+  #  LDFLAGS="-L/usr/local/opt/nspr/lib -L/usr/local/opt/nss/lib"
+  #fi
+
+  CPPFLAGS="$CPPFLAGS" LDFLAGS="$LDFLAGS" wrap ./configure --enable-slapd=no --enable-static --with-pic --with-tls=gnutls --prefix=$LOCAL_INSTALL
   wrap make -j${BUILD_THREADS:-4} install
   wrap make -j${BUILD_THREADS:-4} depend
   wrap make -j${BUILD_THREADS:-4} install

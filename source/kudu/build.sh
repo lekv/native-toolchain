@@ -51,6 +51,8 @@ function is_supported_platform {
     # SUSE and Debian are known to fail.
     suse | debian) false;;
 
+    darwin*) false;;
+
     # For any other OS just assume it'll work.
     *) true;;
   esac

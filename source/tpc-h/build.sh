@@ -35,17 +35,17 @@ if needs_build_package; then
 
   # The value of CC will be picked up through the environment, just delete the makefile
   # line.
-  sed -i -r '/^CC\s*=/d' makefile
+  sed -i -E '/^CC\s*=/d' makefile
 
   # See the makefile for a description of the options below.
-  sed -i -r 's/^(DATABASE\s*=)/\1 DB2/' makefile
-  sed -i -r 's/^(MACHINE\s*=)/\1 LINUX/' makefile
-  sed -i -r 's/^(WORKLOAD\s*=)/\1 TPCH/' makefile
+  sed -i -E 's/^\(DATABASE\s*=\)/\1 DB2/' makefile
+  sed -i -E 's/^\(MACHINE\s*=\)/\1 LINUX/' makefile
+  sed -i -E 's/^\(WORKLOAD\s*=\)/\1 TPCH/' makefile
 
   # -DEOL_HANDLING affects data generation. Data is generated row-wise with a separator
   # between values. With this option, the final value in a row will not have a trailing
   # separator. This is done for better compatibility with Hadoop and Impala.
-  sed -i -r 's/^(CFLAGS\s*=)/\1 -DEOL_HANDLING/' makefile
+  sed -i -E 's/^\(CFLAGS\s*=\)/\1 -DEOL_HANDLING/' makefile
 
   wrap make clean
   wrap make -j${BUILD_THREADS-4}

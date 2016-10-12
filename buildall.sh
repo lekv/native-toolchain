@@ -124,7 +124,7 @@ GFLAGS_VERSION=2.0 $SOURCE_DIR/source/gflags/build.sh
 ################################################################################
 # Build gperftools
 ################################################################################
-GPERFTOOLS_VERSION=2.5 $SOURCE_DIR/source/gperftools/build.sh
+GPERFTOOLS_VERSION=2.5-p1 $SOURCE_DIR/source/gperftools/build.sh
 GPERFTOOLS_VERSION=2.3 $SOURCE_DIR/source/gperftools/build.sh
 GPERFTOOLS_VERSION=2.0-p1 $SOURCE_DIR/source/gperftools/build.sh
 
@@ -166,7 +166,7 @@ RE2_VERSION=20130115-p1 $SOURCE_DIR/source/re2/build.sh
 ################################################################################
 # Build Ldap
 ################################################################################
-OPENLDAP_VERSION=2.4.25 $SOURCE_DIR/source/openldap/build.sh
+OPENLDAP_VERSION=2.4.44 $SOURCE_DIR/source/openldap/build.sh
 
 ################################################################################
 # Build Avro
@@ -197,7 +197,7 @@ fi
 ################################################################################
 # Build Libunwind
 ################################################################################
-LIBUNWIND_VERSION=1.1 $SOURCE_DIR/source/libunwind/build.sh
+#LIBUNWIND_VERSION=1.1 $SOURCE_DIR/source/libunwind/build.sh
 
 ################################################################################
 # Build Breakpad

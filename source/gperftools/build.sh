@@ -36,7 +36,12 @@ if needs_build_package ; then
   # TODO: google perf tools indicates this might be necessary on 64 bit systems.
   # we're not compiling the rest of our code to not omit frame pointers but it
   # still seems to generate useful profiling data.
-  wrap ./configure --enable-frame-pointers --with-pic --prefix=$LOCAL_INSTALL
+  wrap autoconf
+  SIZED_DELETE_OPT=""
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    SIZED_DELETE_OPT="--enable-sized-delete --enable-dynamic-sized-delete-support"
+  fi
+  wrap ./configure $SIZED_DELETE_OPT --enable-frame-pointers --with-pic --prefix=$LOCAL_INSTALL
   wrap make -j${BUILD_THREADS:-4} install
 
   footer $PACKAGE $PACKAGE_VERSION
