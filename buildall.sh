@@ -137,7 +137,7 @@ if [[ ! "$OSTYPE" == "darwin"* ]]; then
   fi
   THRIFT_VERSION=0.9.0-p8 $SOURCE_DIR/source/thrift/build.sh
 else
-  THRIFT_VERSION=0.9.2-p2 $SOURCE_DIR/source/thrift/build.sh
+  THRIFT_VERSION=0.9.2-p3 $SOURCE_DIR/source/thrift/build.sh
 fi
 
 export -n LIBEVENT_VERSION

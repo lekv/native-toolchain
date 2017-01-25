@@ -1,0 +1,61 @@
+Backport of the changes in this PR: https://github.com/apache/thrift/pull/805 fixing THRIFT-3555
+diff -ru thrift-0.9.2-p2.orig/configure.ac thrift-0.9.2-p2.fix/configure.ac
+--- thrift-0.9.2-p2.orig/configure.ac	2017-01-25 20:57:59.000000000 +0100
++++ thrift-0.9.2-p2.fix/configure.ac	2017-01-25 21:04:05.000000000 +0100
+@@ -480,21 +480,6 @@
+ AC_CHECK_LIB(rt, clock_gettime)
+ AC_CHECK_LIB(socket, setsockopt)
+ 
+-if test "$have_cpp" = "yes" ; then
+-# mingw toolchain used to build "Thrift Compiler for Windows"
+-# does not support libcrypto, so we just check if we building the cpp library
+-AC_CHECK_LIB(crypto,
+-    BN_init,
+-    [AC_CHECK_LIB(ssl,
+-        SSL_ctrl,
+-        [LIBS="-lssl -lcrypto $LIBS"],
+-        [AC_MSG_ERROR(["Error: libssl required"])],
+-        -lcrypto
+-    )],
+-    [AC_MSG_ERROR(["Error: libcrypto required."])]
+-)
+-fi
+-
+ AC_TYPE_INT16_T
+ AC_TYPE_INT32_T
+ AC_TYPE_INT64_T
+diff -ru thrift-0.9.2-p2.orig/lib/cpp/Makefile.am thrift-0.9.2-p2.fix/lib/cpp/Makefile.am
+--- thrift-0.9.2-p2.orig/lib/cpp/Makefile.am	2017-01-25 20:57:59.000000000 +0100
++++ thrift-0.9.2-p2.fix/lib/cpp/Makefile.am	2017-01-25 21:05:12.000000000 +0100
+@@ -32,7 +32,8 @@
+ 
+ lib_LTLIBRARIES = libthrift.la
+ pkgconfig_DATA = thrift.pc
+-libthrift_la_LDFLAGS = -release $(VERSION) $(BOOST_LDFLAGS) $(OPENSSL_LDFLAGS)
++libthrift_la_LDFLAGS = -release $(VERSION)
++libthrift_la_LIBADD = $(BOOST_LDFLAGS) $(OPENSSL_LDFLAGS) $(OPENSSL_LIBS)
+ 
+ ## We only build the extra libraries if we have the dependencies,
+ ## but we install all of the headers unconditionally.
+@@ -51,7 +52,6 @@
+ 
+ AM_CXXFLAGS = -Wall -Wextra -pedantic
+ AM_CPPFLAGS = $(BOOST_CPPFLAGS) $(OPENSSL_INCLUDES) -I$(srcdir)/src
+-AM_LDFLAGS = $(BOOST_LDFLAGS) $(OPENSSL_LDFLAGS)
+ 
+ # Define the source files for the module
+ 
+diff -ru thrift-0.9.2-p2.orig/lib/cpp/test/Makefile.am thrift-0.9.2-p2.fix/lib/cpp/test/Makefile.am
+--- thrift-0.9.2-p2.orig/lib/cpp/test/Makefile.am	2017-01-25 20:57:59.000000000 +0100
++++ thrift-0.9.2-p2.fix/lib/cpp/test/Makefile.am	2017-01-25 21:06:05.000000000 +0100
+@@ -242,7 +242,9 @@
+ 
+ OpenSSLManualInitTest_LDADD = \
+ 	$(top_builddir)/lib/cpp/libthrift.la \
+-	-l:libboost_unit_test_framework.a
++	-l:libboost_unit_test_framework.a \
++	$(OPENSSL_LDFLAGS) \
++	$(OPENSSL_LIBS)
+ 
+ #
+ # Common thrift code generation rules
