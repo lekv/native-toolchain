@@ -25,9 +25,8 @@ THIS_DIR="$( cd "$( dirname "$0" )" && pwd )"
 prepare $THIS_DIR
 
 if needs_build_package ; then
-  header $PACKAGE $PACKAGE_VERSION
-
   download_dependency $PACKAGE "${PACKAGE_STRING}.tar.gz" $THIS_DIR
+  setup_package_build $PACKAGE $PACKAGE_VERSION
 
   wrap ./configure --with-pic --prefix=$LOCAL_INSTALL
   wrap make -j${BUILD_THREADS:-4} install

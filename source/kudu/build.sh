@@ -86,7 +86,8 @@ function build {
         command output was: "'$EXTRACTED_DIR_NAME'".
     exit 1
   fi
-  header $PACKAGE $PACKAGE_VERSION kudu-$PACKAGE_VERSION.tar.gz $EXTRACTED_DIR_NAME
+  setup_package_build $PACKAGE $PACKAGE_VERSION kudu-$PACKAGE_VERSION.tar.gz \
+      $EXTRACTED_DIR_NAME
 
   # Kudu's dependencies are not in the toolchain. They could be added later.
   cd thirdparty

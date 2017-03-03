@@ -28,7 +28,7 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "${PACKAGE_STRING}.zip" $THIS_DIR
 
 if needs_build_package ; then
-  header $PACKAGE $PACKAGE_VERSION
+  setup_package_build $PACKAGE $PACKAGE_VERSION
 
   wrap cmake -DCMAKE_INSTALL_PREFIX=${LOCAL_INSTALL} .
   wrap make -j${BUILD_THREADS:-4}

@@ -28,7 +28,7 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "${PACKAGE_STRING}.tar.gz" $THIS_DIR
 
 if needs_build_package ; then
-  header $PACKAGE $PACKAGE_VERSION
+  setup_package_build $PACKAGE $PACKAGE_VERSION
 
   wrap ./bootstrap --prefix=${LOCAL_INSTALL} --parallel=${BUILD_THREADS}
   wrap make -j${BUILD_THREADS}

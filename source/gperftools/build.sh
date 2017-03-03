@@ -28,7 +28,7 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "${PACKAGE_STRING}.tar.gz" $THIS_DIR
 
 if needs_build_package ; then
-  header $PACKAGE $PACKAGE_VERSION
+  setup_package_build $PACKAGE $PACKAGE_VERSION
 
   # TODO: google perf tools indicates this might be necessary on 64 bit systems.
   # we're not compiling the rest of our code to not omit frame pointers but it

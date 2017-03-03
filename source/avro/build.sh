@@ -26,7 +26,7 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "avro-src-${PACKAGE_VERSION}.tar.gz" $THIS_DIR
 
 if needs_build_package ; then
-  header $PACKAGE $PACKAGE_VERSION
+  setup_package_build $PACKAGE $PACKAGE_VERSION
 
   cd lang/c
 

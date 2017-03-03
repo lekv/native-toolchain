@@ -22,8 +22,8 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "${PACKAGE_STRING}.zip" $THIS_DIR
 
 if needs_build_package; then
-  header $PACKAGE $PACKAGE_VERSION ${PACKAGE_STRING}.zip v${PACKAGE_VERSION} \
-      v${PACKAGE_VERSION}
+  setup_package_build $PACKAGE $PACKAGE_VERSION ${PACKAGE_STRING}.zip \
+      v${PACKAGE_VERSION} v${PACKAGE_VERSION}
   cd tools
 
   # The value of CC will be picked up through the environment, just delete the makefile

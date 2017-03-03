@@ -22,8 +22,8 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "${PACKAGE_STRING}.zip" $THIS_DIR
 
 if needs_build_package; then
-  header $PACKAGE $PACKAGE_VERSION ${PACKAGE_STRING}.zip tpch_${PACKAGE_VERSION//./_} \
-      tpch_${PACKAGE_VERSION//./_}
+  setup_package_build $PACKAGE $PACKAGE_VERSION ${PACKAGE_STRING}.zip \
+      tpch_${PACKAGE_VERSION//./_} tpch_${PACKAGE_VERSION//./_}
   cd dbgen
 
   # TCP provides a "makefile.suite" which is a sort of template. They expect people to

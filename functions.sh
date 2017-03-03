@@ -138,9 +138,10 @@ function prepare() {
 # archive unpacks to the first directory and move it to <target dir>.
 # If PATCH_DIR is set, look in that directory for patches. Otherwise look in
 # "<package name>-<package version>-patches"
-# Usage: header <package name> <package version> [<archive file>
-#               [<extracted archive dir> [<target dir> [<extract command>]]]]
-function header() {
+# Usage: setup_package_build <package name> <package version> [<archive file>
+#                            [<extracted archive dir> [<target dir>
+#                            [<extract command>]]]]
+function setup_package_build() {
   local PKG_NAME=$1
   local PKG_VERSION=$2
   local ARCHIVE=${3-}

@@ -28,7 +28,7 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "${PACKAGE_STRING}.tar.gz" $THIS_DIR
 
 if needs_build_package ; then
-  header $PACKAGE $PACKAGE_VERSION
+  setup_package_build $PACKAGE $PACKAGE_VERSION
   CFLAGS="-fPIC -DPIC" CXXFLAGS="$CXXFLAGS -fPIC -DPIC" wrap make install PREFIX=$LOCAL_INSTALL
   footer $PACKAGE $PACKAGE_VERSION
 fi

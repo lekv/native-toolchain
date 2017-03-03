@@ -28,7 +28,7 @@ prepare $THIS_DIR
 download_dependency $PACKAGE "${PACKAGE_STRING}.tgz" $THIS_DIR
 
 if needs_build_package ; then
-  header $PACKAGE $PACKAGE_VERSION
+  setup_package_build $PACKAGE $PACKAGE_VERSION
 
   # For some reason, re2 doesnt play nice with prefix installations and other
   # typical configuration parameters
