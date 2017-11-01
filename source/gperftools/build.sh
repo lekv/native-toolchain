@@ -13,6 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# cleans and rebuilds thirdparty/. The Impala build environment must be set up
+# by bin/impala-config.sh before running this script.
+
 # Exit on non-true return value
 set -e
 # Exit on reference to uninitialized variable
@@ -30,11 +33,24 @@ download_dependency $PACKAGE "${PACKAGE_STRING}.tar.gz" $THIS_DIR
 if needs_build_package ; then
   header $PACKAGE $PACKAGE_VERSION
 
-  # TODO: google perf tools indicates this might be necessary on 64 bit systems.
-  # we're not compiling the rest of our code to not omit frame pointers but it
-  # still seems to generate useful profiling data.
-  wrap ./configure --enable-frame-pointers --with-pic --prefix=$LOCAL_INSTALL
+  old=${CXXFLAGS}
+  export CXXFLAGS=${old/-stdlib=libstdc++/}
+  wrap ./configure --prefix=$LOCAL_INSTALL
+
+  ## TODO: google perf tools indicates this might be necessary on 64 bit systems.
+  ## we're not compiling the rest of our code to not omit frame pointers but it
+  ## still seems to generate useful profiling data.
+  #wrap autoconf
+  #SIZED_DELETE_OPT=""
+  ##if [[ "$OSTYPE" == "darwin"* ]]; then
+  ##  SIZED_DELETE_OPT="--enable-sized-delete --enable-dynamic-sized-delete-support"
+  ##fi
+  #wrap ./configure $SIZED_DELETE_OPT --enable-frame-pointers --with-pic --prefix=$LOCAL_INSTALL
+  #echo "Sleeping"
+  #read
   wrap make -j${BUILD_THREADS:-4} install
 
   footer $PACKAGE $PACKAGE_VERSION
+
+  export CXXFLAGS=${old}
 fi

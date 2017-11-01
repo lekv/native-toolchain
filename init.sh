@@ -169,7 +169,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   export MACOSX_DEPLOYMENT_TARGET=$(echo $OS_VERSION | sed -E 's/(10.[0-9]+).*/\1/')
 
   # Setting the C++ stlib to libstdc++ on Mac instead of the default libc++
-  ARCH_FLAGS="${ARCH_FLAGS} -stdlib=libstdc++"
+  #ARCH_FLAGS="${ARCH_FLAGS} -stdlib=libstdc++"
 fi
 
 export ARCH_FLAGS
@@ -194,7 +194,7 @@ if [[ $SYSTEM_GCC -eq 0 ]]; then
   CXXFLAGS="$ARCH_FLAGS -static-libstdc++ -fPIC -O3 -m64"
 else
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    CXX="g++ -stdlib=libstdc++"
+    CXX="g++"
   fi
   LDFLAGS=""
   CXXFLAGS="-fPIC -O3 -m64"
