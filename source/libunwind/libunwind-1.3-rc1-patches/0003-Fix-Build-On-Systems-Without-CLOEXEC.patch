@@ -1,0 +1,13 @@
+--- libunwind-1.3-rc1/src/x86_64/Ginit.c	2018-05-29 10:41:48.769449452 -0700
++++ libunwind-1.3-rc1-p2/src/x86_64/Ginit.c	2018-05-29 10:40:31.792047915 -0700
+@@ -75,6 +75,10 @@
+ 
+ static int mem_validate_pipe[2] = {-1, -1};
+ 
++#ifndef O_CLOEXEC
++#define O_CLOEXEC 0
++#endif
++
+ static inline void
+ open_pipe (void)
+ {
